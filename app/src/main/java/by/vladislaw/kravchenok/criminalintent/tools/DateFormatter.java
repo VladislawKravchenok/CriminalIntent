@@ -1,7 +1,5 @@
 package by.vladislaw.kravchenok.criminalintent.tools;
 
-import android.annotation.SuppressLint;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

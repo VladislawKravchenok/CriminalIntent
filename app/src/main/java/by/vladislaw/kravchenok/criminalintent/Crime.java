@@ -1,5 +1,6 @@
 package by.vladislaw.kravchenok.criminalintent;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,7 +12,6 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    private boolean mRequiresPolice;
     public Crime(){
         mId = UUID.randomUUID();
         mDate = new Date();
@@ -31,10 +31,6 @@ public class Crime {
 
     public Date getDate() {
         return mDate;
-    }
-
-    public void setDate(Date date) {
-        mDate = date;
     }
 
     public boolean isSolved() {

@@ -21,7 +21,6 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_fragment);
-
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
@@ -31,4 +30,5 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
 }

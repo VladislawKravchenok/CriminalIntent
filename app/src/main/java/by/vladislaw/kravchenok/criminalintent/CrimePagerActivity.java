@@ -60,7 +60,7 @@ public class CrimePagerActivity extends AppCompatActivity {
 
             }
         });
-        mViewPager.setCurrentItem(CrimeLab.get(this).getCrimeIndex(crimeId));
+        mViewPager.setCurrentItem(CrimeLab.get(this).getCrimeIndex(crimeId,mCrimes));
     }
 
     @Override

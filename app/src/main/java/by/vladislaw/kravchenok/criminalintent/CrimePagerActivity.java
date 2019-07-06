@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.UUID;
 
+import by.vladislaw.kravchenok.criminalintent.model.Crime;
+import by.vladislaw.kravchenok.criminalintent.model.CrimeLab;
+
 public class CrimePagerActivity extends AppCompatActivity {
     private static final String TAG = CrimePagerActivity.class.getSimpleName();
     private static final String EXTRA_CRIME_ID = "by.vladislaw.kravchenok.criminalintent.crime_id";

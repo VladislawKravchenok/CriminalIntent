@@ -1,10 +1,9 @@
-package by.vladislaw.kravchenok.criminalintent;
+package by.vladislaw.kravchenok.criminalintent.model;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.UUID;
 
 import by.vladislaw.kravchenok.criminalintent.database.CrimeBaseHelper;
 import by.vladislaw.kravchenok.criminalintent.database.CrimeCursorWrapper;
-import by.vladislaw.kravchenok.criminalintent.database.CrimeDbSchema;
 import by.vladislaw.kravchenok.criminalintent.database.CrimeDbSchema.CrimeTable;
 
 /**
@@ -33,7 +31,7 @@ public class CrimeLab {
     }
 
     private CrimeLab(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
     }
 

@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import by.vladislaw.kravchenok.criminalintent.model.Crime;
+import by.vladislaw.kravchenok.criminalintent.model.CrimeLab;
 import by.vladislaw.kravchenok.criminalintent.tools.DateFormatter;
 
 /**

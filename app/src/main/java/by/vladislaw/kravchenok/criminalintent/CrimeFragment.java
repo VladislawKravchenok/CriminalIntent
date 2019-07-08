@@ -61,6 +61,7 @@ public class CrimeFragment extends Fragment {
     private static final String TAG = CrimeFragment.class.getSimpleName();
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_IMAGE = "DialogImage";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_READ_CONTACTS = 3;
@@ -231,6 +232,14 @@ public class CrimeFragment extends Fragment {
         });
         mPhotoView = (ImageView) view.findViewById(R.id.crime_photo);
         updatePhotoView();
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                CrimePhotoFragment crimePhotoFragment = CrimePhotoFragment.newInstance(mCrime.getId());
+                crimePhotoFragment.show(ft, DIALOG_IMAGE);
+            }
+        });
 
         return view;
     }

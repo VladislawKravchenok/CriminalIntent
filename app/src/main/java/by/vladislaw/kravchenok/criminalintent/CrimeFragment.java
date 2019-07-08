@@ -301,7 +301,7 @@ public class CrimeFragment extends Fragment {
 
             String[] queryId = new String[]{ContactsContract.Contacts._ID};
             Cursor idCursor = doQuery(contactUri, queryId);
-            String id = null;
+            String id;
             try {
                 if (idCursor.getCount() == 0) {
                     return;
@@ -315,14 +315,12 @@ public class CrimeFragment extends Fragment {
 
             if (id == null) return;
 
-
             Cursor phoneNumberCursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                     new String[]{ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER},
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
                     new String[]{id},
                     null);
-            String phoneNumber = null;
-            Uri number = null;
+            String phoneNumber;
             try {
                 if (phoneNumberCursor.getCount() == 0)
                     return;

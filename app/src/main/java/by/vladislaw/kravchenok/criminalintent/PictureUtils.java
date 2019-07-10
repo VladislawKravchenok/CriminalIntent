@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.widget.ImageView;
 
 /**
  * Created by Vladislaw Kravchenok on 08.07.2019.
@@ -37,5 +38,9 @@ public class PictureUtils {
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
         return getScaledBitmap(path, size.x, size.y);
+    }
+
+    public static Bitmap getScaledBitmap(String path, ImageView imageView) {
+        return getScaledBitmap(path, imageView.getWidth(), imageView.getHeight());
     }
 }

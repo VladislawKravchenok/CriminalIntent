@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -78,6 +80,7 @@ public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private File mPhotoFile;
+    private boolean isPhotoViewReady;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
@@ -231,7 +234,7 @@ public class CrimeFragment extends Fragment {
             }
         });
         mPhotoView = (ImageView) view.findViewById(R.id.crime_photo);
-        updatePhotoView();
+
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -240,7 +243,17 @@ public class CrimeFragment extends Fragment {
                 crimePhotoFragment.show(ft, DIALOG_IMAGE);
             }
         });
-
+        if (mCrime.getPhotoFileName() != null) {
+            ViewTreeObserver treeObserver = mPhotoView.getViewTreeObserver();
+            treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Log.d(TAG, "onGlobalLayout");
+                    isPhotoViewReady = true;
+                }
+            });
+        }
+        updatePhotoView();
         return view;
     }
 
@@ -444,8 +457,14 @@ public class CrimeFragment extends Fragment {
     private void updatePhotoView() {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
+        } else if (isPhotoViewReady) {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), mPhotoView);
+            Log.i(TAG, "bitmap has size as mPhotoView " + bitmap.getByteCount());//165440 byte
+            mPhotoView.setImageBitmap(bitmap);
         } else {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());//3 000 000 byte
+            // Bitmap bitmap = BitmapFactory.decodeFile(mPhotoFile.getPath());//48 000 000 byte
+            Log.i(TAG, "bitmap has size as full screen display " + bitmap.getByteCount());
             mPhotoView.setImageBitmap(bitmap);
         }
     }

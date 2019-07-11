@@ -19,7 +19,7 @@ import java.util.UUID;
 import by.vladislaw.kravchenok.criminalintent.model.Crime;
 import by.vladislaw.kravchenok.criminalintent.model.CrimeLab;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks {
     private static final String TAG = CrimePagerActivity.class.getSimpleName();
     private static final String EXTRA_CRIME_ID = "by.vladislaw.kravchenok.criminalintent.crime_id";
     private ViewPager mViewPager;
@@ -106,5 +106,10 @@ public class CrimePagerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "");
+    }
+
+    @Override
+    public void onCrimeUpdate(Crime crime) {
+
     }
 }

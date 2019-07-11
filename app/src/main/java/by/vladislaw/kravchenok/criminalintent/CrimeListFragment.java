@@ -40,6 +40,11 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private Callbacks mCallbacks;
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
 
     private ViewGroup mEmptyListLayout;
     private Button mNewCrimeButton;
@@ -48,6 +53,7 @@ public class CrimeListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(TAG, "onAttach");
+        mCallbacks = (Callbacks) context;
     }
 
     @Override
@@ -67,8 +73,8 @@ public class CrimeListFragment extends Fragment {
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
-        mEmptyListLayout = (LinearLayout)view.findViewById(R.id.empty_list_layout);
-        mNewCrimeButton = (Button)view.findViewById(R.id.new_crime);
+        mEmptyListLayout = (LinearLayout) view.findViewById(R.id.empty_list_layout);
+        mNewCrimeButton = (Button) view.findViewById(R.id.new_crime);
         return view;
     }
 
@@ -121,6 +127,7 @@ public class CrimeListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         Log.d(TAG, "onDetach");
+        mCallbacks = null;
     }
 
     @Override
@@ -173,7 +180,7 @@ public class CrimeListFragment extends Fragment {
 
     }
 
-    private void updateUi() {
+    public void updateUi() {
         final CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
@@ -187,7 +194,7 @@ public class CrimeListFragment extends Fragment {
         }
         updateSubtitle();
 
-        if(crimes.isEmpty()){
+        if (crimes.isEmpty()) {
             mEmptyListLayout.setVisibility(View.VISIBLE);
             mNewCrimeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -195,7 +202,7 @@ public class CrimeListFragment extends Fragment {
                     initNewCrime();
                 }
             });
-        }else{
+        } else {
             mNewCrimeButton.setOnClickListener(null);
             mEmptyListLayout.setVisibility(View.GONE);
         }
@@ -204,8 +211,8 @@ public class CrimeListFragment extends Fragment {
     private void initNewCrime() {
         Crime crime = new Crime();
         CrimeLab.get(getActivity()).addCrime(crime);
-        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-        startActivity(intent);
+        updateUi();
+        mCallbacks.onCrimeSelected(crime);
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -232,8 +239,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
-            startActivity(intent);
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 
@@ -249,7 +255,7 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
 
-        public void setCrimes(List<Crime> crimes){
+        public void setCrimes(List<Crime> crimes) {
             mCrimes = crimes;
         }
 

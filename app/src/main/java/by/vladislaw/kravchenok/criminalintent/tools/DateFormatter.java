@@ -3,6 +3,7 @@ package by.vladislaw.kravchenok.criminalintent.tools;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Vladislaw Kravchenok on 26.06.2019.
@@ -17,7 +18,7 @@ public class DateFormatter {
     }
 
     public static String format(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
         return dateFormat.format(date);
     }
 }

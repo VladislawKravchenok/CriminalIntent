@@ -3,6 +3,7 @@ package by.vladislaw.kravchenok.criminalintent;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -211,7 +212,6 @@ public class CrimeListFragment extends Fragment {
             mNewCrimeButton.setOnClickListener(null);
             mEmptyListLayout.setVisibility(View.GONE);
         }
-
         if (itemTouchHelper == null) {
             simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.END, ItemTouchHelper.END) {
 

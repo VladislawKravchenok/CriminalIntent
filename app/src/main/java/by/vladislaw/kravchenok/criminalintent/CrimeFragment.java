@@ -474,15 +474,18 @@ public class CrimeFragment extends Fragment {
     private void updatePhotoView() {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
+            mPhotoView.setContentDescription(getString(R.string.crime_photo_no_image_description));
         } else if (isPhotoViewReady) {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), mPhotoView);
             Log.i(TAG, "bitmap has size as mPhotoView " + bitmap.getByteCount());//165440 byte
             mPhotoView.setImageBitmap(bitmap);
+            mPhotoView.setContentDescription(getString(R.string.crime_photo_image_description));
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());//3 000 000 byte
             // Bitmap bitmap = BitmapFactory.decodeFile(mPhotoFile.getPath());//48 000 000 byte
             Log.i(TAG, "bitmap has size as full screen display " + bitmap.getByteCount());
             mPhotoView.setImageBitmap(bitmap);
+            mPhotoView.setContentDescription(getString(R.string.crime_photo_image_description));
         }
     }
 

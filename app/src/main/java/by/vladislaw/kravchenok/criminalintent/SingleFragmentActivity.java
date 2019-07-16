@@ -30,6 +30,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             ft.add(R.id.fragment_container, fragment)
                     .commit();
         }
+
     }
 
     @LayoutRes

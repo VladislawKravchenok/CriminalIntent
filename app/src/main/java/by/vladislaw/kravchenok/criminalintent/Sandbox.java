@@ -1,9 +1,5 @@
 package by.vladislaw.kravchenok.criminalintent;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * Created by Vladislaw Kravchenok on 10.07.2019.
  */

@@ -30,4 +30,7 @@
     <string name="crime_photo_button_description">Take photo of crime scene</string>
     <string name="crime_photo_no_image_description">Crime scene photo (not set)</string>
     <string name="crime_photo_image_description">Crime scene photo (set)</string>
+    <string name="crime_registration">Crime was registered </string>
+    <string name="crime_suspect">Crime suspect is</string>
+    <string name="crime_photo_changed">Crime photo was changed</string>
 </resources>

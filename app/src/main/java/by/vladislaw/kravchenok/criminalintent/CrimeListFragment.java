@@ -259,6 +259,8 @@ public class CrimeListFragment extends Fragment {
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(DateFormatter.format(mCrime.getDate()));
             mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+
+            mSolvedImageView.setContentDescription(mCrime.isSolved() ? getString(R.string.crime_report_solved) : getString(R.string.crime_report_unsolved));
         }
 
         @Override
@@ -282,7 +284,8 @@ public class CrimeListFragment extends Fragment {
         public void setCrimes(List<Crime> crimes) {
             mCrimes = crimes;
         }
-        public List<Crime> getCrimes(){
+
+        public List<Crime> getCrimes() {
             return mCrimes;
         }
 

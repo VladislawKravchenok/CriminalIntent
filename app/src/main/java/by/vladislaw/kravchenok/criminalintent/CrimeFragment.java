@@ -2,19 +2,14 @@ package by.vladislaw.kravchenok.criminalintent;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -38,8 +33,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -81,6 +74,7 @@ public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private File mPhotoFile;
     private boolean isPhotoViewReady;
+    private boolean backFromCamera;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
@@ -192,6 +186,8 @@ public class CrimeFragment extends Fragment {
         });
         if (mCrime.getSuspect() != null) {
             mSuspectButton.setText(mCrime.getSuspect());
+            String contentDescription = getString(R.string.crime_suspect).concat(mCrime.getSuspect());
+            mSuspectButton.setContentDescription(contentDescription);
         }
 
         PackageManager packageManager = getActivity().getPackageManager();
@@ -275,13 +271,16 @@ public class CrimeFragment extends Fragment {
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void updateCrime(){
+    private void updateCrime() {
         CrimeLab.get(getActivity()).updateCrime(mCrime);
         mCallbacks.onCrimeUpdate(mCrime);
     }
 
     private void updateDate() {
-        mDateButton.setText(DateFormatter.format(mCrime.getDate()));
+        String date = DateFormatter.format(mCrime.getDate());
+        mDateButton.setText(date);
+        String contentDescription = getString(R.string.crime_registration).concat(date);
+        mDateButton.setContentDescription(contentDescription);
     }
 
     @Override
@@ -300,6 +299,10 @@ public class CrimeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
+        if(backFromCamera){
+            mPhotoView.announceForAccessibility(getString(R.string.crime_photo_changed));
+            backFromCamera = false;
+        }
     }
 
     @Override
@@ -414,6 +417,7 @@ public class CrimeFragment extends Fragment {
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             updateCrime();
             updatePhotoView();
+            backFromCamera = true;
         }
     }
 
